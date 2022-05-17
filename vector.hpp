@@ -39,10 +39,10 @@ namespace ft {
 			void _check_capacity(size_type needed) {
 				if (needed <= _capacity - _size) return;
 
-				if (_size + needed > max_size())
+				if (needed > max_size())
 					throw std::length_error("ft::vector::max_capacity_reached");
-				else if (_size + needed > (_capacity * 2))
-					reserve(_size + needed);
+				else if (needed > (_capacity * 2))
+					reserve(needed);
 				else
 					reserve(2 * _capacity);
 			}
