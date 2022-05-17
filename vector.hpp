@@ -5,6 +5,7 @@
 #include "iterator.hpp"
 
 #include <iostream>
+#include <iterator>
 
 namespace ft {
 	template <class T, class Alloc = std::allocator<T> >
@@ -19,7 +20,7 @@ namespace ft {
 			typedef				std::ptrdiff_t				difference_type;
 			typedef typename	Alloc::reference			reference;
 			typedef	typename	Alloc::pointer				pointer;
-
+			typedef				pointer						iterator;
 
 		/******************/
 		/* Private Fields */
@@ -82,6 +83,8 @@ namespace ft {
 			//Functions
 
 			void 		reserve (size_type new_capacity) {
+				if (new_capacity > max_size())
+					throw std::length_error("ft::vector::out_of_bounds");
 				if (new_capacity <= _capacity) return;
 
 				T* new_data = _alloc.allocate(new_capacity);
@@ -119,6 +122,9 @@ namespace ft {
 				}
 			}
 
+			void swap (vector& x) {
+
+			}
 
 			void 		assign (size_type n, const value_type& val);
 
