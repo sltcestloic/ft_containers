@@ -19,8 +19,11 @@ namespace ft {
 			typedef				std::size_t					size_type;
 			typedef				std::ptrdiff_t				difference_type;
 			typedef typename	Alloc::reference			reference;
+			typedef typename	Alloc::const_reference		const_reference;
 			typedef	typename	Alloc::pointer				pointer;
+			typedef typename	Alloc::const_pointer		const_pointer;
 			typedef				pointer						iterator;
+			typedef				const_pointer				const_iterator;
 
 		/******************/
 		/* Private Fields */
@@ -40,11 +43,14 @@ namespace ft {
 				if (needed <= _capacity - _size) return;
 
 				if (needed > max_size())
-					throw std::length_error("ft::vector::max_capacity_reached");
-				else if (needed > (_capacity * 2))
+					throw std::out_of_range("ft::vector::max_capacity_reached");
+				else if (needed > (_capacity * 2)) {
 					reserve(needed);
-				else
+					_capacity = needed;
+				} else {
 					reserve(2 * _capacity);
+					_capacity *= 2;
+				}
 			}
 
 		/********************/
@@ -54,12 +60,11 @@ namespace ft {
 
 			//Constructors
 
-			explicit vector (const allocator_type& alloc = allocator_type()) : _alloc(alloc), _capacity(0), _data(nullptr) {
-				std::cout << "called constructor 1\n";
-			};
+			explicit vector(const allocator_type& alloc = allocator_type()) : _capacity(0), _alloc(alloc) {
+			}
 
 			explicit vector (size_type n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type()) : _capacity(n) {
+				const allocator_type& alloc = allocator_type()) : _capacity(n), _alloc(alloc) {
 					_alloc.allocate(n);
 					for (size_type i = 0; i < n; i++)
 						_alloc.construct(_data + i, val);
@@ -67,13 +72,8 @@ namespace ft {
 				}
 
 			template <class InputIterator>
-         	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
-				_alloc.allocate(last - first);
-				while (first != last) {
-					_alloc.construct(_data + _size, *first);
-					first++;
-				}
-				std::cout << "called constructor 3\n";
+         	vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
+				assign(first, last);
 			}
 
 			vector (const vector& x) {
@@ -84,7 +84,7 @@ namespace ft {
 
 			void 		reserve (size_type new_capacity) {
 				if (new_capacity > max_size())
-					throw std::length_error("ft::vector::out_of_bounds");
+					throw std::out_of_range("ft::vector::out_of_bounds");
 				if (new_capacity <= _capacity) return;
 
 				T* new_data = _alloc.allocate(new_capacity);
@@ -119,18 +119,21 @@ namespace ft {
 				while (first != last) {
 					_alloc.construct(_data + _size, *first);
 					first++;
+					_size++;
 				}
 			}
 
 			void swap (vector& x) {
-
+				vector copy(this);
+				assign(x.begin(), x.end());
+				x = copy;
 			}
 
 			void 		assign (size_type n, const value_type& val);
 
 			void 		clear () {
 				for (size_t i = 0; i < _size; i++)
-					_alloc.deconstruct(_data[i]);
+					_alloc.destroy(_data + i);
 				_size = 0;
 			}
 
@@ -146,9 +149,7 @@ namespace ft {
 			}
 
 
-			reference 	operator[] (size_type n) {
-				return _data[n];
-			}
+			
 			
 			reference 	at (size_type n) {
 				if (n >= _size)
@@ -156,29 +157,15 @@ namespace ft {
 				return _data[n];
 			}
 
-			bool		empty() const {
-				return _size == 0;
-			}
-
-			size_type	max_size() const {
-				return 4611686018427387903;
-			}
-			
-			size_type	size() const {
-				return _size;
-			}
-
-			size_type	capacity() const {
-				return _capacity;
-			}
-
-			reference 	back() {
-				return _data[_size - 1];
-			}
-
-			reference	front() {
-				return _data[0];
-			}
+			reference 	operator[] (size_type n) { return _data[n]; }
+			bool		empty() const { return _size == 0; }
+			size_type	max_size() const { return 4611686018427387903; }			
+			size_type	size() const { return _size; }
+			size_type	capacity() const { return _capacity; }
+			reference 	back() { return _data[_size - 1]; }
+			reference	front() { return _data[0]; }
+			iterator	begin() const { return _data; }
+			iterator	end() const { return _data + (_size - 1); }
 
 			// vector		&operator=(vector &ref) {
 			// 	this->_data = ref._data; 
