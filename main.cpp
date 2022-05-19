@@ -63,6 +63,8 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true
 	std::cout << "###############################################" << std::endl;
 }
 
+#include "iterator.hpp"
+
 int main () {
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(7);
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_two(4);
@@ -73,6 +75,8 @@ int main () {
 		vct[i] = (vct.size() - i) * 3;
 	for (unsigned long int i = 0; i < vct_two.size(); ++i)
 		vct_two[i] = (vct_two.size() - i) * 5;
+	ft::vector_iterator<TESTED_TYPE> test = vct.begin();
+	ft::vector_iterator<TESTED_TYPE> test2 = vct.end();
 	printSize(vct);
 	printSize(vct_two);
 

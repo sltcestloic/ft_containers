@@ -59,6 +59,13 @@
 		"typeinfo": "cpp",
 		"unordered_map": "cpp",
 		"utility": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"deque": "cpp",
+		"list": "cpp",
+		"map": "cpp",
+		"set": "cpp",
+		"__tree": "cpp",
+		"queue": "cpp",
+		"stack": "cpp"
 	}
 }
