@@ -79,7 +79,9 @@ namespace ft {
 			}
 
 			vector (const vector& x) {
-				assign(x._begin, x._end);
+				_size = 0;
+				_alloc = allocator_type();
+				assign(x.front(), x.back());
 			}
 
 			//Functions
@@ -171,13 +173,21 @@ namespace ft {
 				return _data[n];
 			}
 
+			const_reference at (size_type n) const {
+				if (n >= _size)
+					throw std::out_of_range("ft::vector::out_of_range");
+				return _data[n];
+			}
+
 			reference 		operator[] (size_type n) { return _data[n]; }
 			bool			empty() const { return _size == 0; }
 			size_type		max_size() const { return 4611686018427387903; }			
 			size_type		size() const { return _size; }
 			size_type		capacity() const { return _capacity; }
 			reference 		back() { return _data[_size - 1]; }
+			const_reference back() const { return _data[_size - 1]; }
 			reference		front() { return _data[0]; }
+			const_reference front() const { return _data[0]; }
 			iterator		begin() { return iterator(this->_data); }
 			const_iterator	begin() const { return const_iterator(this->_data); }
 			iterator		end() { return iterator(this->_data + this->_size); }
