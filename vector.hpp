@@ -33,10 +33,10 @@ namespace ft {
 		/* Private Fields */
 		/******************/
 		private:
-			T*				_data;
 			size_type		_size;
 			size_type		_capacity;
 			allocator_type	_alloc;
+			T*				_data;
 
 		/*********************/
 		/* Private Functions */
@@ -78,10 +78,10 @@ namespace ft {
 				assign(first, last);
 			}
 
-			vector (const vector& x) {
-				_size = 0;
-				_alloc = allocator_type();
-				assign(x.front(), x.back());
+			vector (const vector& x) : _size(x._size), _capacity(x._capacity), _alloc(x._alloc), _data(nullptr) {
+				this->_data = _alloc.allocate(this->_capacity);
+				for (size_type i = 0; i < _size; i++)
+						_alloc.construct(&_data[i], x._data[i]);
 			}
 
 			//Functions
@@ -165,6 +165,35 @@ namespace ft {
 			}
 
 
+			iterator insert (iterator position, const value_type& val) {
+				insert(position, 1, val);
+				difference_type difference = position.get_ptr() - this->_data;
+				return iterator(begin() + difference());
+			}
+
+			void insert (iterator position, size_type n, const value_type& val) {
+				size_type	insert_begin = 0;
+				size_type	insert_end = 0;
+				size_type	end = _size + n - 1;
+
+				iterator it = this->begin();
+				while (it != position) {
+					it++;
+					insert_begin++;
+				}
+
+				insert_end = insert_begin + n;
+				_check_capacity(_size + (insert_end - insert_begin) + 1);
+
+				while (end > insert_end) {
+					_alloc.construct(&data[end], _data[end - n]);
+					_alloc.destroy(&_data[end - n]);
+				}
+			}
+
+			//1 2 5 5 6 7 8 
+			template <class InputIterator>
+    		void insert (iterator position, InputIterator first, InputIterator last);
 			
 			
 			reference 	at (size_type n) {
@@ -181,7 +210,7 @@ namespace ft {
 
 			reference 		operator[] (size_type n) { return _data[n]; }
 			bool			empty() const { return _size == 0; }
-			size_type		max_size() const { return 4611686018427387903; }			
+			size_type		max_size() const { return _alloc::max_size(); }			
 			size_type		size() const { return _size; }
 			size_type		capacity() const { return _capacity; }
 			reference 		back() { return _data[_size - 1]; }
