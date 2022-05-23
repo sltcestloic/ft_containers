@@ -29,6 +29,10 @@ namespace ft {
 
 			value_type &operator*() { return *this->_p; }
 
+			value_type &operator[](int index) {
+				return *(this->_p + index);
+			}
+
 			difference_type operator+(const vector_iterator &rhs) const {
 				difference_type res = this->_p + rhs._p;
 				return (res);

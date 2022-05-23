@@ -37,7 +37,7 @@ using namespace std;
 	cout << vec.back() << endl;
 } */
 
-#define TESTED_NAMESPACE ft
+#define TESTED_NAMESPACE std
 #define TESTED_TYPE int
 
 #define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
@@ -63,30 +63,33 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true
 	std::cout << "###############################################" << std::endl;
 }
 
-#include "iterator.hpp"
+int		main(void)
+{
+	TESTED_NAMESPACE::vector<TESTED_TYPE> foo(3, 15);
+	TESTED_NAMESPACE::vector<TESTED_TYPE> bar(5, 42);
+	
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_foo = foo.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_bar = bar.begin();
 
-int main () {
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct2;
-	const int cut = 3;
+	std::cout << "BEFORE SWAP" << std::endl;
 
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = (vct.size() - i) * 7;
-	printSize(vct);
+	std::cout << "foo contains:" << std::endl;
+	printSize(foo);
+	std::cout << "bar contains:" << std::endl;
+	printSize(bar);
 
-	vct2.insert(vct2.begin(), vct.begin(), vct.begin() + cut);
-	printSize(vct2);
-	vct2.insert(vct2.begin(), vct.begin() + cut, vct.end());
-	printSize(vct2);
-	vct2.insert(vct2.end(), vct.begin(), vct.begin() + cut);
-	printSize(vct2);
+	foo.swap(bar);
 
-	std::cout << "insert return:" << std::endl;
+	std::cout << "AFTER SWAP" << std::endl;
 
-	std::cout << *vct2.insert(vct2.end(), 42) << std::endl;
-	std::cout << *vct2.insert(vct2.begin() + 5, 84) << std::endl;
-	std::cout << "----------------------------------------" << std::endl;
+	std::cout << "foo contains:" << std::endl;
+	printSize(foo);
+	std::cout << "bar contains:" << std::endl;
+	printSize(bar);
 
-	printSize(vct2);
+	std::cout << "Iterator validity:" << std::endl;
+	std::cout << (it_foo == bar.begin()) << std::endl;
+	std::cout << (it_bar == foo.begin()) << std::endl;
+
 	return (0);
 }
