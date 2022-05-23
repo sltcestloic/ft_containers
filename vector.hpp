@@ -166,8 +166,8 @@ namespace ft {
 
 
 			iterator insert (iterator position, const value_type& val) {
+				difference_type difference = position - this->begin();
 				insert(position, 1, val);
-				difference_type difference = position.get_ptr() - this->_data;
 				return iterator(begin() + difference);
 			}
 
@@ -176,14 +176,8 @@ namespace ft {
 				size_type	insert_end = 0;
 				size_type	end = _size + n - 1;
 
-
-				iterator it = this->begin();
-				while (it != position) {
-					it++;
-					insert_begin++;
-				}
-
-				insert_end = insert_begin + n;				
+				insert_begin = position - this->begin();
+				insert_end = insert_begin + n;
 				_check_capacity(_size + (insert_end - insert_begin) + 1);
 				_size += n;
 
@@ -192,11 +186,12 @@ namespace ft {
 					_alloc.destroy(&_data[end - n]);
 					end--;
 				}
-
+			
 				while (insert_begin < insert_end) {
 					_alloc.construct(_data + insert_begin, val);
 					insert_begin++;
 				}
+				
 			}
 
 			template <class InputIterator>
@@ -207,12 +202,7 @@ namespace ft {
 				size_type	end = _size + n - 1;
 
 
-				iterator it = this->begin();
-				while (it != position) {
-					it++;
-					insert_begin++;
-				}
-
+				insert_begin = position - this->begin();
 				insert_end = insert_begin + n;				
 				_check_capacity(_size + (insert_end - insert_begin) + 1);
 				_size += n;
