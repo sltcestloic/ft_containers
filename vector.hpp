@@ -168,7 +168,7 @@ namespace ft {
 			iterator insert (iterator position, const value_type& val) {
 				insert(position, 1, val);
 				difference_type difference = position.get_ptr() - this->_data;
-				return iterator(begin() + difference());
+				return iterator(begin() + difference);
 			}
 
 			void insert (iterator position, size_type n, const value_type& val) {
@@ -176,24 +176,59 @@ namespace ft {
 				size_type	insert_end = 0;
 				size_type	end = _size + n - 1;
 
+
 				iterator it = this->begin();
 				while (it != position) {
 					it++;
 					insert_begin++;
 				}
 
-				insert_end = insert_begin + n;
+				insert_end = insert_begin + n;				
 				_check_capacity(_size + (insert_end - insert_begin) + 1);
+				_size += n;
 
-				while (end > insert_end) {
-					_alloc.construct(&data[end], _data[end - n]);
+				while (end >= insert_end) {
+					_alloc.construct(&_data[end], _data[end - n]);
 					_alloc.destroy(&_data[end - n]);
+					end--;
+				}
+
+				while (insert_begin < insert_end) {
+					_alloc.construct(_data + insert_begin, val);
+					insert_begin++;
 				}
 			}
 
-			//1 2 5 5 6 7 8 
 			template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last);
+    		void insert (iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
+				size_type	n = (size_type)(last - first);
+				size_type	insert_begin = 0;
+				size_type	insert_end = 0;
+				size_type	end = _size + n - 1;
+
+
+				iterator it = this->begin();
+				while (it != position) {
+					it++;
+					insert_begin++;
+				}
+
+				insert_end = insert_begin + n;				
+				_check_capacity(_size + (insert_end - insert_begin) + 1);
+				_size += n;
+
+				while (end >= insert_end) {
+					_alloc.construct(&_data[end], _data[end - n]);
+					_alloc.destroy(&_data[end - n]);
+					end--;
+				}
+
+				while (insert_begin < insert_end) {
+					_alloc.construct(_data + insert_begin, *first);
+					insert_begin++;
+					first++;
+				}
+			}
 			
 			
 			reference 	at (size_type n) {
@@ -210,7 +245,7 @@ namespace ft {
 
 			reference 		operator[] (size_type n) { return _data[n]; }
 			bool			empty() const { return _size == 0; }
-			size_type		max_size() const { return _alloc::max_size(); }			
+			size_type		max_size() const { return _alloc.max_size(); }			
 			size_type		size() const { return _size; }
 			size_type		capacity() const { return _capacity; }
 			reference 		back() { return _data[_size - 1]; }
