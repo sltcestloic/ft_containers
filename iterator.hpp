@@ -3,18 +3,49 @@
 
 namespace ft {
 
-	template<typename T>
-	class vector_iterator {
+	template <class Iterator>
+	class iterator_traits {
+		public:
+			typedef typename 	Iterator::difference_type 	difference_type;
+			typedef typename 	Iterator::value_type 		value_type;
+			typedef typename 	Iterator::pointer			pointer;
+			typedef typename 	Iterator::reference		 	reference;
+			typedef typename 	Iterator::category 			category;
+	};
 
+	template <class T>
+	class iterator_traits<T*> {
 		public:
 			typedef		T									value_type;
 			typedef		std::random_access_iterator_tag		category;
 			typedef		std::ptrdiff_t						difference_type;
 			typedef		value_type							*pointer;
 			typedef		value_type							&reference;
+	};
+
+	template <class T>
+	class iterator_traits<const T*> {
+		public:
+			typedef		T									value_type;
+			typedef		std::random_access_iterator_tag		category;
+			typedef		std::ptrdiff_t						difference_type;
+			typedef		const value_type					*pointer;
+			typedef		const value_type					&reference;
+	};
+
+	template <class Iterator>
+	class vector_iterator {
+
+		public:
+			typedef				Iterator 											iterator_type;
+			typedef typename 	iterator_traits<iterator_type>::difference_type 	difference_type;
+			typedef typename 	iterator_traits<iterator_type>::value_type 			value_type;
+			typedef typename 	iterator_traits<iterator_type>::pointer 			pointer;
+			typedef typename 	iterator_traits<iterator_type>::reference 			reference;
+			typedef typename 	iterator_traits<iterator_type>::category 			category;
 
 		protected:
-			value_type		*_p;
+			Iterator			_p;
 
 		public:
 			vector_iterator() : _p(nullptr) {};
@@ -22,14 +53,11 @@ namespace ft {
 			vector_iterator(vector_iterator const &ref) : _p(ref._p) {};
 			virtual ~vector_iterator() {};
 
-			value_type *get_ptr(void) const
-			{
-				return this->_p;
-			}
+			Iterator 	base() const { return _p; }
 
-			value_type &operator*() { return *this->_p; }
+			reference 	operator*() { return *_p; }
 
-			value_type &operator[](int index) {
+			reference	operator[](int index) {
 				return *(this->_p + index);
 			}
 
@@ -48,18 +76,18 @@ namespace ft {
 				return (res);
 			}
 
-			vector_iterator<T> operator-(difference_type n) const
+			vector_iterator operator-(difference_type n) const
 			{
 				vector_iterator res = this->_p - n;
 				return (res);
 			}
 
-			vector_iterator<T> &operator+=(difference_type n) {
+			vector_iterator &operator+=(difference_type n) {
 				this->_p += n;
 				return *this;
 			}
 
-			vector_iterator<T> &operator-=(difference_type n) {
+			vector_iterator &operator-=(difference_type n) {
 				this->_p -= n;
 				return *this;
 			}
@@ -70,11 +98,7 @@ namespace ft {
 				return (b);
 			}
 
-			bool operator!=(const vector_iterator &other) const
-			{
-				bool b = this->_p != other._p;
-				return (b);
-			}
+			bool operator!=(const vector_iterator &other) const { return this->_p != other._p; }
 
 			// Pre increment
 			vector_iterator &operator++()
@@ -164,7 +188,7 @@ namespace ft {
         return (res);
     }
 
-    template <typename T>
+    template <class T>
     std::ostream &operator<<(std::ostream &o, vector_iterator<T> &rhs)
     {
         o << rhs.get_ptr();

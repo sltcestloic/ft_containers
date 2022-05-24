@@ -66,6 +66,22 @@
 		"set": "cpp",
 		"__tree": "cpp",
 		"queue": "cpp",
-		"stack": "cpp"
+		"stack": "cpp",
+		"csignal": "cpp",
+		"fstream": "cpp",
+		"iomanip": "cpp",
+		"filesystem": "cpp",
+		"clocale": "cpp",
+		"compare": "cpp",
+		"condition_variable": "cpp",
+		"numeric": "cpp",
+		"random": "cpp",
+		"thread": "cpp",
+		"*.tcc": "cpp",
+		"concepts": "cpp",
+		"memory_resource": "cpp",
+		"numbers": "cpp",
+		"semaphore": "cpp",
+		"stop_token": "cpp"
 	}
 }
