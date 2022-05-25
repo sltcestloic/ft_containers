@@ -643,7 +643,7 @@ Range 2
 ========= TEST 23 =========
 768614336404564650
 0 - 0
-Error : vector
+Error : ft::vector::out_of_range
 Vector empty
 0 - 3
 1 - 3
