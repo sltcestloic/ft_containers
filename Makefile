@@ -48,5 +48,6 @@ stl_test:	$(STL_NAME)
 			./$(STL_NAME) > $(STL_OUT)
 
 test:		stl_test ft_test
+			diff out_ft.diff out_stl.diff
 
 .PHONY:		all clean fclean re test ft_test stl_test
