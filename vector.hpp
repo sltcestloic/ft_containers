@@ -153,6 +153,8 @@ namespace ft {
 				size_type	erase_amount = last - first;
 				size_type 	i = erase_index;
 
+				if (erase_amount == 0) return iterator(this->begin() + erase_index);
+
 				while (erase_index < _size - erase_amount) {
 					_alloc.destroy(&_data[erase_index]);
 					_alloc.construct(&_data[erase_index], _data[erase_index + erase_amount]);
@@ -181,7 +183,6 @@ namespace ft {
 			}
 
 			void		pop_back() {
-				if (empty()) return;
 				_alloc.destroy(_data + (--_size));
 			}
 
