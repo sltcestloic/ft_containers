@@ -48,7 +48,6 @@ namespace ft {
 			void _check_capacity(size_type needed) {
 				if (needed <= _capacity) return;
 
-
 				if (needed > max_size())
 					throw std::out_of_range("ft::vector::max_capacity_reached");
 				else if (needed > (_capacity * 2))
@@ -87,11 +86,17 @@ namespace ft {
 					_alloc.construct(&_data[i], x._data[i]);
 			}
 
+			~vector() {
+				clear();
+				if (_capacity)
+					_alloc.deallocate(_data, _capacity);
+			}
+
 			//Functions
 
 			void 		reserve (size_type new_capacity) {
 				if (new_capacity > max_size())
-					throw std::out_of_range("ft::vector::out_of_bounds");
+					throw std::length_error("ft::vector::max_capacity_reached");
 				if (new_capacity <= _capacity) return;
 
 				T* new_data = _alloc.allocate(new_capacity);
@@ -99,6 +104,8 @@ namespace ft {
 					_alloc.construct(new_data + i, _data[i]);
 				for (size_type i = 0; i < _size; i++) //destroy current data
 					_alloc.destroy(_data + i);
+				if (_capacity)
+					_alloc.deallocate(_data, _capacity);
 				_capacity = new_capacity;
 				_data = new_data; //set current data to new data
 			}

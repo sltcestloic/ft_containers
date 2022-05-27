@@ -1,3 +1,5 @@
 containers_test
 a.out
 *.dSYM
+container_tester
+*.diff

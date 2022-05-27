@@ -198,6 +198,7 @@ void test_all_operators(const ft::vector<int>& vec, const ft::vector<int>& base,
 
 // Operators
 void test7() {
+	cout << "========== TEST 7 ==========" << endl;
 	ft::vector<int> base;
 	base.reserve(4);
 	base.assign(2, 8);
@@ -231,6 +232,21 @@ void test7() {
 	std::cout << "--- "; show_cap(vec);
 }
 
+// copilot test
+void test8() {
+	cout << "========== TEST 8 ==========" << endl;
+	cout << "assign / insert (gen par copilot)" << endl;
+	ft::vector<int> vec(5);
+	ft::vector<int> vec2(5);
+	ft::vector<int> vec3(5);
+	vec.assign(5, 1);
+	vec2.assign(5, 2);
+	vec3.assign(5, 3);
+	vec.insert(vec.begin() + 2, vec2.begin(), vec2.end());
+	vec.insert(vec.begin() + 4, vec3.begin(), vec3.end());
+	show_cap(vec); print(vec);
+}
+
 int main() {
 	test1();
 	test2();
@@ -239,4 +255,5 @@ int main() {
 	test5();
 	test6();
 	test7();
+	test8();
 }
