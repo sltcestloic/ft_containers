@@ -179,6 +179,58 @@ void test6() {
 	show_cap(vec); print(vec);
 }
 
+void test_operator(const ft::vector<int>& vec, const ft::vector<int>& base, bool (*op)(const ft::vector<int>&, const ft::vector<int>&), bool expected, std::string str) {
+	if (op(vec, base) == expected)
+		std::cout << "+ " << str << " OK (" << (expected == true ? "true" : "false") << ")" << std::endl;
+	else
+		std::cout << "- " << str << " KO (expected " << (expected == true ? "true" : "false") << ")" << std::endl;
+}
+
+void test_all_operators(const ft::vector<int>& vec, const ft::vector<int>& base,
+	bool a, bool b, bool c, bool d, bool e, bool f) {
+	test_operator(vec, base, &ft::operator==, a, "==");
+	test_operator(vec, base, &ft::operator!=, b, "!=");
+	test_operator(vec, base, &ft::operator< , c, "< ");
+	test_operator(vec, base, &ft::operator> , d, "> ");
+	test_operator(vec, base, &ft::operator<=, e, "<=");
+	test_operator(vec, base, &ft::operator>=, f, ">=");
+}
+
+// Operators
+void test7() {
+	ft::vector<int> base;
+	base.reserve(4);
+	base.assign(2, 8);
+	std::cout << "--- ---" << std::endl;
+	ft::vector<int> vec;
+	std::cout << "--- ---" << std::endl;
+
+	test_all_operators(vec, base, 0, 1, 1, 0, 1, 0);
+	std::cout << "--- ---" << std::endl;
+	vec = base;
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 1, 0, 0, 0, 1, 1);
+	vec.front()++;
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 0, 1, 0, 1, 0, 1);
+	vec.back()--;
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 0, 1, 0, 1, 0, 1);
+	vec.front()--;
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 0, 1, 1, 0, 1, 0);
+	std::cout << "--- ---" << std::endl;
+	vec.erase(vec.end() - 1);
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 0, 1, 1, 0, 1, 0);
+	vec.front()++;
+	std::cout << "--- ---" << std::endl;
+	test_all_operators(vec, base, 0, 1, 0, 1, 0, 1);
+	std::cout << "--- ---" << std::endl;
+	vec = base;
+	std::cout << "--- "; show_cap(vec);
+}
+
 int main() {
 	test1();
 	test2();
@@ -186,4 +238,5 @@ int main() {
 	test4();
 	test5();
 	test6();
+	test7();
 }

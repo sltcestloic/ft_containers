@@ -291,3 +291,57 @@ yo
 yo
 cc
 yo
+--- ---
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
+--- ---
++ == OK (true)
++ != OK (false)
++ <  OK (false)
++ >  OK (false)
++ <= OK (true)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
+--- 2 - 2

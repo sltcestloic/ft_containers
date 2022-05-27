@@ -291,5 +291,57 @@ yo
 yo
 cc
 yo
-pop_back (more than size)
-18446744073709551590 - 20
+--- ---
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
+--- ---
++ == OK (true)
++ != OK (false)
++ <  OK (false)
++ >  OK (false)
++ <= OK (true)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (true)
++ >  OK (false)
++ <= OK (true)
++ >= OK (false)
+--- ---
++ == OK (false)
++ != OK (true)
++ <  OK (false)
++ >  OK (true)
++ <= OK (false)
++ >= OK (true)
+--- ---
+--- 2 - 2
