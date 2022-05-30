@@ -80,16 +80,19 @@ namespace ft {
 				assign(first, last);
 			}
 
-			vector (const vector& x) : _size(x._size), _capacity(x._size), _alloc(x._alloc), _data(nullptr) {
-				this->_data = _alloc.allocate(this->_size);
-				for (size_type i = 0; i < _size; i++)
-					_alloc.construct(&_data[i], x._data[i]);
+			vector (const vector& x) : _size(x._size), _capacity(x._size), _alloc(x._alloc) {
+				if (_capacity) {
+					this->_data = _alloc.allocate(this->_size);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.construct(&_data[i], x._data[i]);
+				}
 			}
 
 			~vector() {
 				clear();
-				if (_capacity)
+				if (_capacity) {
 					_alloc.deallocate(_data, _capacity);
+				}
 			}
 
 			//Functions
@@ -263,6 +266,7 @@ namespace ft {
 			}
 
 			reference 			operator[] (size_type n) { return _data[n]; }
+			allocator_type 		get_allocator() const { return _alloc; }
 			bool				empty() const { return _size == 0; }
 			size_type			max_size() const { return _alloc.max_size(); }			
 			size_type			size() const { return _size; }
