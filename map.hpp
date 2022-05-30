@@ -7,6 +7,22 @@
 
 namespace ft {
 
+	template <class Value, class Iterator>
+	class map_iterator {
+		private:
+			typedef 			Iterator										 	iterator_type;
+			typedef typename 	iterator_traits<iterator_type>::difference_type	 	difference_type;
+			typedef typename 	iterator_traits<Value>::value_type					value_type;
+			typedef typename 	iterator_traits<Value>::pointer						pointer;
+			typedef typename 	iterator_traits<Value>::reference 					reference;
+			typedef 			bidirectional_iterator_tag 							iterator_category;
+
+			Iterator			_p;
+		public:
+
+			map_iterator(Iterator &ref) : _p(ref) {}
+	};
+
 	template < class Key,                                     // map::key_type
            class T,                                      	 // map::mapped_type
            class Compare = std::less<Key>,                     // map::key_compare
@@ -33,9 +49,7 @@ namespace ft {
 
 				public:
 					bool operator() (const value_type& x, const value_type& y) const
-					{
 						return comp(x.first, y.first);
-					}
 			}
 
 		public:

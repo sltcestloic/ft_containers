@@ -3,6 +3,12 @@
 
 namespace ft {
 
+	struct input_iterator_tag {};
+    struct output_iterator_tag {};
+    struct forward_iterator_tag : public input_iterator_tag {};
+    struct bidirectional_iterator_tag : public forward_iterator_tag {};
+    struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+
 	template <class Iterator>
 	class iterator_traits {
 		public:
@@ -252,12 +258,6 @@ namespace ft {
     {
         return (reverse_iterator<Iterator>(it.base() - n));
     }
-
-    template <class Iterator>
-  	typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
-		  (void)lhs;
-		  (void)rhs;
-	  }
 
     template <typename it1, typename it2>
     bool operator==(const reverse_iterator<it1> &a, const reverse_iterator<it2> &b) { return (a.base() == b.base()); }
