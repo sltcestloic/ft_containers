@@ -90,9 +90,8 @@ namespace ft {
 
 			~vector() {
 				clear();
-				if (_capacity) {
+				if (_capacity)
 					_alloc.deallocate(_data, _capacity);
-				}
 			}
 
 			//Functions
