@@ -31,8 +31,6 @@ namespace ft {
 
 			reference	operator[](int index) { return *(this->_p + index); }
 
-			//difference_type operator+(const vector_iterator &rhs) const { return (this->_p + rhs._p); }
-
 			vector_iterator operator+(difference_type n) const { return (this->_p + n); }
 
 			difference_type operator-(const vector_iterator &rhs) const { return (this->_p - rhs._p); }

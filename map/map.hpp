@@ -97,8 +97,16 @@ namespace ft {
 				return reverse_iterator(end());
 			}
 
+			reverse_iterator rbegin() const {
+				return const_reverse_iterator(end());
+			}
+
 			reverse_iterator rend() {
 				return reverse_iterator(begin());
+			}
+
+			reverse_iterator rend() const {
+				return const_reverse_iterator(begin());
 			}
 
 
