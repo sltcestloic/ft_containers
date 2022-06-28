@@ -87,11 +87,6 @@ namespace ft {
 
 			tree_iterator(_Node_ptr gang)
 			{
-				/* if (gang == NULL)
-				{
-					tree_iterator();
-					return;
-				} */
 				senti = gang;
 				while (senti->parent)
 					senti = senti->parent;
@@ -222,11 +217,6 @@ namespace ft {
 
 			const_tree_iterator(_Node_ptr gang)
 			{
-			/* 	if (gang == NULL)
-				{
-					const_tree_iterator();
-					return;
-				} */
 				senti = gang;
 				while (senti->parent)
 					senti = senti->parent;
@@ -318,7 +308,7 @@ namespace ft {
 				return (tmp);
 			}
 
-			// // Operateur de decrementation=====================================================================
+			// Operateur de decrementation=====================================================================
 
 			_Node_ptr maximum(_Node_ptr node) {
 				while (node->right != NULL)
@@ -346,11 +336,6 @@ namespace ft {
 					current = _y;
 				}
 				return *this;
-				/* if (current == senti)
-					current = last();
-				else
-					current = current->previous();
-				return *this; */
 			}
 			
 			const_tree_iterator	operator--(int)
@@ -526,45 +511,6 @@ namespace ft {
 				ret.second = true;
 				return ret;
 			}
-
-			// iterator insert(iterator position, const value_type& val) {
-			// 	pointer node = position.current;
-			// 	pointer tmp = node;
-
-			// 	// Check si il est a un endroit valide, sinon on appelle le insert normal à la place
-			// 	if (tmp->parent && tmp->parent->right)
-			// 		if (tmp->parent->right == tmp && _val_comp(val, tmp->data)) // Si il est a droite mais qu'il est plus petit
-			// 			return insert(val);
-		
-			// 	if (tmp->parent && tmp->parent->left)
-			// 		if (tmp->parent->left == tmp && _val_comp(tmp->data, val)) // Si il est a gauche mais qu'il est plus grand
-			// 			return insert(val);
-
-			// 	pointer y = NULL;
-			// 	while (tmp != NULL)
-			// 	{
-			// 		y = tmp;
-			// 		if (_val_comp(val, tmp->data))
-			// 			tmp = tmp->left;
-			// 		else
-			// 			tmp = tmp->right;
-			// 	}
-			// 	tmp = make_node(val);
-			// 	tmp->parent = y;
-			// 	if (y == NULL)
-			// 	{
-			// 		root = tmp;
-			// 		root->color = BLACK;
-			// 	}
-			// 	else if (_val_comp(val, y->data))
-			// 		y->left = tmp;
-			// 	else
-			// 		y->right = tmp;
-			// 	fix_insert(tmp);
-			// 	senti->left = root;
-			// 	root->parent = senti;
-			// 	return iterator(tmp);
-			// }
 
 			void	fix_insert(node<value_type>* node)
 			{
