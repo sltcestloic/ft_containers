@@ -18,7 +18,7 @@ namespace ft {
 		struct node<value_type>	*parent;
 		int						color;
 
-		node(const value_type & data) : data(data), color(1), left(NULL), right(NULL), parent(NULL) {}
+		node(const value_type & data) : data(data), left(NULL), right(NULL), parent(NULL), color(1) {}
 
 		node(const node& other) { *this = other; }
 
@@ -564,25 +564,6 @@ namespace ft {
 			}
 
 			//erase==========================================================================================
-
-			void delete_fixup(pointer node) {
-				
-			}
-
-			void transplant(pointer a, pointer b) {
-				if (a->parent == senti)
-					root = b;
-				else if (a == a->parent->left) {
-					std::cout << a->parent->left->data.first << " = " << b << std::endl;
-					a->parent->left = b;
-				}
-				else {
-					std::cout << a->parent->right->data.first << " = " << b << std::endl;
-					a->parent->right = b;
-				}
-				if (b)
-					b->parent = a->parent;
-			}
 
 			size_t erase(const key_type& key) {
 				pointer node = find_ptr(key);

@@ -64,12 +64,11 @@ namespace ft {
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(0), _compare(comp) {}
 
 			template <class InputIt>
-			map(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) // gang ... enableif ?
-			{
+			map(InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(0), _compare(comp) {
 				insert(first, last);
 			}
 
-			map (const map& x) : _alloc(x._alloc), _compare(key_compare()), _tree(x._tree), _size(x._size) {
+			map (const map& x) : _tree(x._tree), _alloc(x._alloc), _size(x._size), _compare(key_compare()) {
 			}
 
 			~map() {
