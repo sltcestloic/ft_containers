@@ -1,10 +1,11 @@
 #ifndef CONTAINERS_VECTOR_HPP
 #define CONTAINERS_VECTOR_HPP
 
-#include <memory>
-#include "iterator.hpp"
-#include "utils.hpp"
+#include "../iterator.hpp"
+#include "../utils.hpp"
+#include "vector_iterator.hpp"
 
+#include <memory>
 #include <iostream>
 #include <iterator>
 
@@ -234,7 +235,7 @@ namespace ft {
 
 
 				insert_begin = position - this->begin();
-				insert_end = insert_begin + n;				
+				insert_end = insert_begin + n;
 				_check_capacity(_size + (insert_end - insert_begin));
 				_size += n;
 

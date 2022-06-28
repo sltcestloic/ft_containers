@@ -82,6 +82,7 @@
 		"memory_resource": "cpp",
 		"numbers": "cpp",
 		"semaphore": "cpp",
-		"stop_token": "cpp"
+		"stop_token": "cpp",
+		"__functional_03": "cpp"
 	}
 }

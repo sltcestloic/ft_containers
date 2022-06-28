@@ -83,14 +83,13 @@ namespace ft {
 	/*******************/
 
 
-	// From https://www.cplusplus.com/reference/algorithm/equal/
 	template <class InputIterator1, class InputIterator2>
-	bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 ) {
-		while (first1!=last1) {
-			if (!(*first1 == *first2))   // or: if (!pred(*first1,*first2)), for version 2
-			return false;
-			++first1; ++first2;
-		}
+	bool equal(InputIterator1 first1, InputIterator1 last1,
+			InputIterator2 first2)
+	{
+		while (first1 != last1)
+			if (*first1++ != *first2++)
+				return false;
 		return true;
 	}
 
@@ -103,7 +102,6 @@ namespace ft {
 		}
 		return true;
 	}
-
 	// From https://www.cplusplus.com/reference/algorithm/lexicographical_compare/
 	template <class InputIterator1, class InputIterator2>
 	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
@@ -117,49 +115,62 @@ namespace ft {
 		return (first2!=last2);
 	}
 
-	/*****************/
-	/*      pair     */
-	/*****************/
-
-	template<class T1, class T2>
-	struct pair {
-
-		typedef T1	first_type;
-		typedef T2	second_type;
-
-		first_type	first;
-		second_type	second;
-
-		pair () : first(), second() {}
-
-		template<class U, class V>
-		pair (const pair<U,V>& pr) : first(pr.first), second(pr.second) {}
-
-		pair (const first_type& a, const second_type& b) : first(a), second(b) {}
+	/* //Sert juste pour la fonctions qui print l'arbre
+	struct Trunk
+	{
+		Trunk *prev;
+		std::string str;
+	
+		Trunk(Trunk *prev, std::string str)
+		{
+			this->prev = prev;
+			this->str = str;
+		}
 	};
 
-	template <class T1, class T2>
-	pair<T1, T2> make_pair(T1 x, T2 y) {
-		return pair<T1, T2>(x, y);
+	void showTrunks(Trunk *p)
+	{
+		if (p == nullptr)
+			return;
+		showTrunks(p->prev);
+		std::cout << p->str;
 	}
-
-	template <class T1, class T2>
-	bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return lhs.first==rhs.first && lhs.second==rhs.second; }
-
-	template <class T1, class T2>
-	bool operator!= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs==rhs); }
-
-	template <class T1, class T2>
-	bool operator<  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second<rhs.second); }
-
-	template <class T1, class T2>
-	bool operator<= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(rhs<lhs); }
-
-	template <class T1, class T2>
-	bool operator>  (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return rhs<lhs; }
-
-	template <class T1, class T2>
-	bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return !(lhs<rhs); }
+			
+	template <class value_type>
+	void printTree(node<value_type>* root, Trunk *prev, bool isLeft)
+	{
+		if (root == nullptr)
+			return;
+		std::string prev_str = "    ";
+		Trunk *trunk = new Trunk(prev, prev_str);
+	
+		printTree(root->right, trunk, true);
+	
+		if (!prev)
+			trunk->str = "———";
+		else if (isLeft)
+		{
+			trunk->str = "┌———";
+			prev_str = "    |";
+		}
+		else {
+			trunk->str = "└──";
+			prev->str = prev_str;
+		}
+	
+		showTrunks(trunk);
+		if (root->color == RED)
+			std::cout << "\033[31m" << root->data.first << "\033[0m" << std::endl;
+		else
+			std::cout << root->data.first << std::endl;
+			
+		if (prev) {
+			prev->str = prev_str;
+		}
+		trunk->str = "    |";
+	
+		printTree(root->left, trunk, false);
+	} */
 }
 
 #endif

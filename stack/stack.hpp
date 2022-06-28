@@ -1,7 +1,7 @@
 #ifndef CONTAINERS_STACK_HPP
 #define CONTAINERS_STACK_HPP
 
-#include "vector.hpp"
+#include "../vector/vector.hpp"
 
 namespace ft {
 	template <class T, class Container = ft::vector<T> >
@@ -11,8 +11,8 @@ namespace ft {
 			typedef			Container		container_type;
 			typedef			size_t			size_type;
 
-			container_type					_container;
 		public:
+			container_type					_container;
 
 			explicit stack (const container_type& ctnr = container_type()) : _container(ctnr) {}
 			bool empty() const { return _container.empty(); }
